@@ -1,0 +1,35 @@
+Parametre,Değer_Aralığı,Durum,Öneri
+Ateş,36.0-37.9,Normal Vücut Sıcaklığı,"Vücut ısınız normal, sağlıklı bir şekilde yaşamınıza devam edebilirsiniz."
+Ateş,38.0-39.0,Yüksek Ateş,"Dinlenin, bol sıvı tüketin. Hafif giysiler giyin ve soğuk kompres uygulayın."
+Ateş,>39.0,Kritik Ateş,"Acilen bir doktora başvurun. Ateş düşürücü ilaç almanız gerekebilir."
+Ateş,<36.0,Düşük Ateş,"Sıcak bir ortam sağlayın ve sıcak içecek tüketin. Durum kötüleşirse tıbbi yardım alın."
+
+Nabız,60-100,Normal Nabız,"Her şey normal, düzenli egzersize devam edin."
+Nabız,100-120,Hafif Yüksek Nabız,"Dinlenin ve stres seviyenizi düşürmeye çalışın. Bol su için."
+Nabız,>120,Aşırı Yüksek Nabız,"Derhal tıbbi yardım alın. Kalp atışlarınızı kontrol altına almak için profesyonel destek gereklidir."
+Nabız,<60,Düşük Nabız,"Bir doktora görünmeniz önerilir. Yeterince dinlenmeye ve sağlıklı beslenmeye özen gösterin."
+
+Oksijen,95-100,Normal Oksijen Seviyesi,"Sağlıklı bir oksijen seviyesi. Solunum egzersizleri ile bu seviyeyi koruyabilirsiniz."
+Oksijen,90-94,Düşük-Normal Oksijen Seviyesi,"Bir sağlık uzmanına danışmanız faydalı olabilir. Daha fazla temiz hava almayı deneyin."
+Oksijen,<90,Düşük Oksijen Seviyesi,"Acil tıbbi yardım alın. Solunum cihazı gerekebilir."
+
+Büyük Tansiyon,120-129,Normal Büyük Tansiyon,"Büyük tansiyonunuz ideal seviyede. Sağlıklı bir yaşam tarzı sürdürmeye devam edin."
+Büyük Tansiyon,130-139,Hafif Yüksek Büyük Tansiyon,"Tuz tüketimini azaltın. Düzenli egzersiz yaparak tansiyonunuzu kontrol altında tutabilirsiniz."
+Büyük Tansiyon,140-159,Yüksek Büyük Tansiyon,"Doktorunuza danışarak tansiyonunuzu kontrol altına alın. Diyetinize dikkat edin ve stresi azaltmaya çalışın."
+Büyük Tansiyon,>160,Kritik Büyük Tansiyon,"Acilen bir doktora başvurun. Yaşam tarzı değişiklikleri ve ilaç tedavisi gerekebilir."
+Büyük Tansiyon,<90,Düşük Büyük Tansiyon,"Bol sıvı tüketin ve bir doktora başvurun. Kan basıncınızın normal seviyeye dönmesi için yardım alın."
+
+Küçük Tansiyon,60-80,Normal Küçük Tansiyon,"Küçük tansiyonunuz normal seviyede. Sağlıklı bir yaşam tarzına devam edin."
+Küçük Tansiyon,81-89,Hafif Yüksek Küçük Tansiyon,"Daha az tuz tüketmeye çalışın. Stresten uzak durarak tansiyonunuzu kontrol altına alın."
+Küçük Tansiyon,90-99,Yüksek Küçük Tansiyon,"Doktorunuza danışarak tansiyon ilacı almayı düşünebilirsiniz. Beslenme düzeninizi kontrol edin."
+Küçük Tansiyon,>100,Kritik Küçük Tansiyon,"Acilen bir doktora başvurun. Kronik tansiyonunuzu tedavi ettirmek önemlidir."
+Küçük Tansiyon,<60,Düşük Küçük Tansiyon,"Bol sıvı tüketin ve tuz alımını artırmayı düşünebilirsiniz. Baş dönmesi gibi belirtiler varsa tıbbi yardım alın."
+
+Kan Şekeri (Açlık),70-99,Normal Açlık Kan Şekeri,"Kan şekeriniz ideal seviyede. Sağlıklı bir beslenme düzeni sürdürün."
+Kan Şekeri (Açlık),100-125,Prediyabet (Açlık),"Şeker tüketiminizi azaltın ve diyetinizi gözden geçirin. Düzenli egzersiz yapmayı ihmal etmeyin."
+Kan Şekeri (Açlık),>125,Diabet (Açlık),"Doktorunuza danışarak şeker seviyenizi kontrol altına alın. Tedavi gerektirebilir."
+Kan Şekeri (Açlık),<70,Düşük Kan Şekeri (Açlık),"Şekerli bir şeyler tüketin. Durum devam ederse tıbbi yardım alın."
+
+Kan Şekeri (Tokluk),<140,Normal Tokluk Kan Şekeri,"Yemek sonrası şeker seviyeniz normal. Sağlıklı yaşam tarzına devam edin."
+Kan Şekeri (Tokluk),140-199,Prediyabet (Tokluk),"Yemek sonrası şeker seviyeniz yüksek. Diyetinizi ve yaşam tarzınızı gözden geçirin."
+Kan Şekeri (Tokluk),>200,Diabet (Tokluk),"Tıbbi yardım alın. İlaç tedavisi veya yaşam tarzı değişiklikleri gerekebilir."

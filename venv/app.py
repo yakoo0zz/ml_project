@@ -1,42 +1,100 @@
 from flask import Flask, request, jsonify
-import joblib
-import os
+import pandas as pd
+from flask_cors import CORS
+import re
 
-# Flask uygulamasını oluştur
 app = Flask(__name__)
+CORS(app)
 
-# Kaydedilen modeli ve vektörleştiriciyi yükle
-current_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(current_dir, "model.pkl")
-vectorizer_path = os.path.join(current_dir, "vectorizer.pkl")
+# Veriyi yükleme
+try:
+    data = pd.read_csv('data/health_data.csv')
+    print("Veriler başarıyla yüklendi.")
+except Exception as e:
+    print(f"Veriler yüklenirken hata oluştu: {e}")
+    data = None
 
-model = joblib.load(model_path)
-vectorizer = joblib.load(vectorizer_path)
+# Değerin aralık içinde olup olmadığını kontrol etme
+def is_value_in_range(değer, aralık):
+    """
+    Girilen değerin aralık içinde olup olmadığını kontrol eder.
+    """
+    try:
+        # '<' işareti için kontrol
+        if '<' in aralık:
+            limit = float(re.search(r'\d+(\.\d+)?', aralık).group())
+            return değer < limit
+
+        # '>' işareti için kontrol
+        elif '>' in aralık:
+            limit = float(re.search(r'\d+(\.\d+)?', aralık).group())
+            return değer > limit
+
+        # '-' ile aralık için kontrol
+        elif '-' in aralık:
+            lower, upper = map(float, aralık.split('-'))
+            return lower <= değer <= upper
+
+        # Format dışı durumlar
+        else:
+            print(f"Geçersiz aralık formatı: {aralık}")
+            return False
+
+    except Exception as e:
+        print(f"Aralık kontrolünde hata: {e}")
+        return False
 
 @app.route('/predict', methods=['POST'])
 def predict():
     """
-    Kullanıcıdan gelen soruya cevap tahmini yapar.
+    Kullanıcıdan gelen parametre ve değere göre öneri döner.
     """
     try:
-        # İstekten gelen veriyi al
-        data = request.json
-        question = data.get("question")
+        # Veriyi kontrol et
+        if data is None or data.empty:
+            return jsonify({"error": "Sağlık verileri yüklenemedi!"}), 500
 
-        if not question:
-            return jsonify({"error": "Question field is required!"}), 400
+        # Kullanıcıdan gelen JSON verisini al
+        incoming_data = request.json
+        parametre = str(incoming_data.get("parametre", "")).strip()  # Stringe dönüştürme
+        değer = incoming_data.get("değer")
 
-        # Soru metnini vektörleştir
-        question_vector = vectorizer.transform([question])
+        # Değerin sayıya çevrilmesi ve kontrol edilmesi
+        try:
+            değer = float(değer)
+        except (ValueError, TypeError):
+            return jsonify({"error": "Geçersiz değer! Lütfen bir sayı girin."}), 400
 
-        # Tahmin yap
-        answer = model.predict(question_vector)[0]
+        if not parametre:
+            return jsonify({"error": "Parametre alanı zorunludur!"}), 400
 
-        return jsonify({"question": question, "answer": answer}), 200
+        # İlgili parametreye göre filtrele
+        filtered_data = data[data['Parametre'].str.lower() == parametre.lower()]
+        if filtered_data.empty:
+            return jsonify({"error": f"Girilen parametre bulunamadı: {parametre}"}), 400
+
+        # Değer aralığını kontrol et ve uygun öneriyi bul
+        for _, row in filtered_data.iterrows():
+            aralık = row['Değer_Aralığı']
+            öneri = row['Öneri']
+
+            if is_value_in_range(değer, aralık):
+                return jsonify({
+                    "parametre": parametre,
+                    "değer": değer,
+                    "durum": row['Durum'],
+                    "öneri": öneri
+                }), 200
+
+        return jsonify({
+            "parametre": parametre,
+            "değer": değer,
+            "öneri": "Girilen değer için uygun bir öneri bulunamadı."
+        }), 200
 
     except Exception as e:
+        print(f"Bir hata oluştu: {e}")
         return jsonify({"error": str(e)}), 500
 
-# Flask uygulamasını başlat
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
